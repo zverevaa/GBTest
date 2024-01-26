@@ -24,3 +24,39 @@ it("mock axios", async () => {
 
     expect(results.post).toBe("Mocking axios be like");
 });
+
+it("mock deleting data", () => {
+    const array = [3, 2, 1];
+    const mock = jest.fn(() => {
+        array.pop();
+        return array;
+    });
+    const results = mock();
+    expect(results).toHaveLength(2);
+});
+
+it("mock editing data", () => {
+    const array = [3, 2, 1];
+    const mock = jest.fn(() => {
+        array[1] = 42;
+        return array;
+    });
+    const results = mock();
+    expect(results).toContain(42);
+});
+
+it("mock adding data", () => {
+    const people = [
+        { name: "John", lastName: "Doe" },
+        { name: "Quick", lastName: "Silver" },
+    ];
+    const mock = jest.fn((array) => {
+        const person = { name: "Wooly", lastName: "Socks" };
+        array.push(person);
+        return array;
+    });
+
+    const results = mock(people);
+    console.log(results);
+    expect(results).toHaveLength(3);
+});
